@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-
 public class Main {
 
     public static void printOptions(ArrayList buyList) {
@@ -12,16 +11,11 @@ public class Main {
             System.out.println(i+1 + ". " + buyList.get(i));
         }
         System.out.println("---------------------");
-
     }
 
     public static void main(String[] args) {
-
         Scanner input = new Scanner(System.in);
         Scanner input2 = new Scanner(System.in);
-
-
-
         int number;
         String removedProduct;
         String text;
@@ -32,7 +26,8 @@ public class Main {
             System.out.println("1. Добавить");
             System.out.println("2. Показать");
             System.out.println("3. Удалить");
-
+            System.out.println("4. Найти");
+            System.out.println();
             number = input.nextInt();
 
             switch (number) {
@@ -55,9 +50,8 @@ public class Main {
                         printOptions(buyList);
                     } catch (NumberFormatException exception) {
                         removedProduct = text;
-                        int index = 0;
-                        for (String product: buyList) {
-                            if (product.equals(text)) {
+                        for (int index = 0; index < buyList.size(); index++) {
+                            if (buyList.get(index).equals(text)) {
                                 buyList.remove(index);
                                 System.out.println("Покупка \"" + removedProduct + "\" удалена!");
                                 printOptions(buyList);
@@ -70,14 +64,22 @@ public class Main {
                             }
                         }
                     }
-
-
+                    break;
+                case 4:
+                    printOptions(buyList);
+                    System.out.println("Введите текст для поиска:");
+                    text = input2.nextLine();
+                    for (int index = 0; index < buyList.size(); index++) {
+                        String queryLower = text.toLowerCase();
+                        String itemLower = buyList.get(index).toLowerCase();
+                        if (itemLower.contains(queryLower)) {
+                            System.out.println(index + 1 + ". " + buyList.get(index));
+                        }
+                    }
+                    break;
+                default:
+                    System.out.println("Введена неизвестная команда!");
             }
-
-
-
-
-
         }
     }
 }
